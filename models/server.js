@@ -6,8 +6,16 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
 
+        // Middlewares
+        this.middlewares();
+
         // Rutas
         this.routes();
+    }
+
+    middlewares(){
+        // Directorio publico
+        this.app.use(express.static('public'));
     }
 
     routes(){
