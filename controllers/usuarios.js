@@ -2,20 +2,34 @@ const { response } = require('express');
 
 const usuariosGet = (req, res = response) => {
 
+    const { q = 'Sin query', nombre = 'Sin Nombre', apikey } = req.query;
+
     res.json({
-        msg: 'get  - Controlador'
+        msg: 'get  - Controlador',
+        q,
+        nombre,
+        apikey
     })
 }
 
 const usuariosPost = (req, res) => {
+
+    const { nombre, edad } = req.body;
+
     res.json({
-        msg: 'post  - Controlador'
+        msg: 'post  - Controlador',
+        nombre,
+        edad
     })
 }
 
 const usuariosPut = (req, res) => {
+
+    const id = req.params.id;
+
     res.json({
-        msg: 'put  - Controlador'
+        msg: 'put  - Controlador',
+        id
     })
 }
 
@@ -26,8 +40,12 @@ const usuariosPatch = (req, res) => {
 }
 
 const usuariosDelete = (req, res) => {
+
+    const id = req.params.id;
+
     res.json({
-        msg: 'delete  - Controlador'
+        msg: 'delete  - Controlador',
+        id
     })
 }
 
