@@ -13,7 +13,14 @@ const existeEmail = async(correo = '') => {
         throw new Error('Ese correo ya está registrado');
 }
 
+const existeIdUsuario = async(id = '') => {
+    const existeId = await Usuario.findById(id);
+    if(!existeId)
+        throw new Error('El ID no existe');
+}
+
 module.exports={
     esRolValido,
-    existeEmail
+    existeEmail,
+    existeIdUsuario
 };
