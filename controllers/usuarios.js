@@ -4,17 +4,26 @@ const { response, request } = require('express');
 const Usuario = require('../models/usuario');
 
 
-const usuariosGet = (req = request, res = response) => {
+const usuariosGet = async(req = request, res = response) => {
 
-    const { q = 'Sin query', nombre = 'Sin Nombre', apikey, page = 1, limit } = req.query;
+    const query = {estado:true};
+    const { limite = 5, desde = 0 } = req.query; 
     
-    res.json({
-        msg: 'get  - Controlador',
-        q,
-        nombre,
-        apikey,
-        page,
-        limit
+    /* const usuarios = await Usuario.find(query)
+                                    .limit(Number(limite))
+                                    .skip(Number(desde));
+    const total = await Usuario.countDocuments(query); */
+
+    const [total, usuarios] = await Promise.all([
+            Usuario.countDocuments(query),
+            Usuario.find(query)
+                    .limit(Number(limite))
+                    .skip(Number(desde))
+        ])
+
+    res.json({ 
+        total,
+        usuarios
     })
 }
 
@@ -49,10 +58,7 @@ const usuariosPut = async(req, res = response) => {
 
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
-    res.json({
-        msg: 'put  - Controlador',
-        usuario
-    })
+    res.json(usuario)
 }
 
 const usuariosPatch = (req, res) => {
