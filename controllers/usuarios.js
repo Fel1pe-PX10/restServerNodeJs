@@ -67,14 +67,17 @@ const usuariosPatch = (req, res) => {
     })
 }
 
-const usuariosDelete = (req, res) => {
+const usuariosDelete = async(req, res) => {
 
     const id = req.params.id;
 
-    res.json({
-        msg: 'delete  - Controlador',
-        id
-    })
+    // ELiminar físicamente
+    //const usuario = await Usuario.findByIdAndDelete(id);
+
+    // Camibar el estado del usuario
+    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
+
+    res.json(usuario)
 }
 
 module.exports = {
