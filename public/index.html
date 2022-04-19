@@ -37,7 +37,9 @@
 
            //console.log('Body', body);
 
-           fetch('http://localhost:8080/api/auth/google', {
+           const url = (window.location.hostname.includes('localhost') ? 'http://localhost:8080/api/auth/google' : 'https://restserver-webserver-node-feli.herokuapp.com/api/auth/google')
+
+           fetch(url, {
               method: 'POST',
               headers: {
                  'Content-Type': 'application/json'
@@ -48,6 +50,7 @@
             .then(resp => {
                console.log(resp);
                localStorage.setItem('email', resp.usuario.correo);
+               location.reload();
             })
             .catch(console.marn);
         }
