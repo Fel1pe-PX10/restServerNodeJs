@@ -40,7 +40,7 @@ const crearCategoria = async(req, res=response) => {
 
     const categoriaDB = await Categoria.findOne({nombre});
     if(categoriaDB){
-        res.status(400).json({
+        return res.status(400).json({
             msg: `La categoria ${categoriaDB.nombre} ya existe`
         });
     }

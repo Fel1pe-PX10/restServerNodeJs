@@ -14,9 +14,7 @@ const { existeCategoriaPorid } = require('../helpers/db-validator');
 
 const router = Router();
 
-/* 
-{{url}}/api/categorias
-*/
+
 // Obtener todas las categorias - publico
 router.get('/', obtenerCategorias);
 
@@ -38,7 +36,7 @@ router.post('/', [
 router.put('/:id', [
     validarJWT,
     check('id', 'No es un id valido de la base de datos').isMongoId(),
-    check('nombre', 'El nombre de la catergoria es obligatorio').not().isEmpty(),
+    check('nombre', 'El nombre de la categoria es obligatorio').not().isEmpty(),
     check('id').custom(existeCategoriaPorid),
     validarCampos
 ],actualizarCategoria);
